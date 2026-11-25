@@ -1,0 +1,33 @@
+import csv
+
+num_attributes = 6
+a = []
+print("\n The Given Training Data Set \n")
+
+# Directly load and read the CSV file from the Colab environment path
+with open('C:/Users/swapnil chavan/Downloads/enjoysport.csv', 'r', encoding='utf-8') as csvFile:
+    reader = csv.reader(csvFile)
+    header = next(reader) # Read and skip the header row
+    for row in reader:
+        a.append(row)
+        print(row)
+
+print("\n The initial value of hypothesis: ")
+# Initialize hypothesis with the first actual training instance (not the header)
+hypothesis = ['0'] * num_attributes
+for j in range(0, num_attributes):
+    hypothesis[j] = a[0][j]
+print(hypothesis)
+
+print("\n Find S: Finding a Maximally Specific Hypothesis\n")
+for i in range(0, len(a)):
+    if a[i][num_attributes] == 'yes':
+        for j in range(0, num_attributes):
+            if a[i][j] != hypothesis[j]:
+                hypothesis[j] = '?'
+            else:
+                hypothesis[j] = a[i][j]
+        print(" For Training instance No:{0} the hypothesis is ".format(i+1), hypothesis)
+
+print("\n The Maximally Specific Hypothesis for a given Training Examples :\n")
+print(hypothesis)

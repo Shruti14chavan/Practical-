@@ -1,0 +1,17 @@
+import pandas as pd
+# Load a sample dataset (e.g., Titanic dataset) using pd.read_excel
+data = pd.read_excel('C:/Users/swapnil chavan/Downloads/titanic3.xls')
+# Change to pd.read_excel # Descriptive statistics summary
+summary_stats = data.describe(include='all')
+print(summary_stats)
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Univariate Graph - Distribution of age
+plt.figure(figsize=(10,6))
+sns.histplot(data['age'].dropna(), kde=True)
+plt.title('Distribution of Age')
+plt.show()
+plt.figure(figsize=(10,6))
+sns.scatterplot(x='age', y='fare', data=data)
+plt.title('Age vs. fare')
+plt.show()

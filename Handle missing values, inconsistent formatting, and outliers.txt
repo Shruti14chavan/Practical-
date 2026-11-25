@@ -1,0 +1,22 @@
+import pandas as pd # Load the dataset
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', 2000)
+pd.set_option('display.max_colwidth', None)
+df = pd.read_csv('C:/Users/swapnil chavan/Downloads/customers-100.csv') # Handle missing values
+df.ffill(inplace=True) # Forward fill
+# Handle inconsistent formatting (example: trimming whitespace) 
+df['Country'] = df['Country'].str.strip()
+import pandas as pd # Load the dataset
+df = pd.read_csv('C:/Users/swapnil chavan/Downloads/customers-100.csv') # ... (other code) ...
+# Handle outliers (example: capping values)
+# Ensure 'Phone 1' and 'Phone 2' columns contain numeric data
+df['Phone 1'] = pd.to_numeric(df['Phone 1'], errors='coerce') # Convert to numeric, invalid values become NaN
+df['Phone 2'] = pd.to_numeric(df['Phone 2'], errors='coerce') # Convert to numeric, invalid values become NaN
+# Now calculate quantiles and apply clipping 
+q1 = df['Phone 1'].quantile(0.25)
+q3 = df['Phone 2'].quantile(0.75) 
+iqr = q3 - q1
+lower_bound = q1 - 1.5 * iqr 
+upper_bound = q3 + 1.5 * iqr
+df['Phone 1'] = df['Phone 2'].clip(lower_bound, upper_bound) 
+print(df.head())
